@@ -1,0 +1,66 @@
+I uploaded Spotify data into SQLLite and queried the data to get results as shown below:
+
+SELECT * FROM Spotifydata;
+
+--1) What is the average popularity for the top 10 tracks?
+
+SELECT AVG(popularity)
+FROM BIT_DB.Spotifydata
+WHERE id<= '10'
+;
+
+--2) What is the shortest song with a popularity of 90 or above?
+
+SELECT MIN(duration_ms) as length
+, track_name
+, popularity
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90
+ORDER BY track_name
+LIMIT 1
+;
+
+--3) Who are the top 10 artists by liveliness?
+
+SELECT artist_name
+, liveness
+FROM Spotifydata
+ORDER BY liveness desc
+LIMIT 10
+;
+
+--4) What is the average danceability for a Doja Cat song?
+
+SELECT AVG(danceability)
+, artist_name
+FROM Spotifydata
+WHERE artist_name = 'Doja Cat'
+;
+
+--5) Which artist released the longest song, and what was the name of the song?
+
+SELECT artist_name
+, MAX(duration_ms)
+, track_name
+FROM Spotifydata
+ORDER BY duration_ms desc
+LIMIT 1
+;
+
+--6) What was the average loudness of the 10 most popular songs?
+
+SELECT AVG(loudness)
+FROM Spotifydata
+ORDER BY popularity desc
+LIMIT 10
+;
+
+--7) What is the average danceability by artist?
+
+SELECT artist_name
+, AVG(danceability)
+, AVG(popularity)
+, AVG(energy)
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+;
